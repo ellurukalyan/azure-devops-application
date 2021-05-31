@@ -13,23 +13,23 @@ jobs:
     displayName: 'npm install'
     inputs:
       command: install
-      workingDir: src/angular7
+      workingDir: src/angular8
   
   - task: Npm@1
     displayName: 'Build Angular'
     inputs:
       command: custom
       customCommand: run build -- --prod
-      workingDir: src/angular7
+      workingDir: src/angular8
   
   - task: PublishPipelineArtifact@0
     inputs:
       artifactName: 'angular'
-      targetPath: 'src/angular7/dist'
+      targetPath: 'src/angular8/dist'
   
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: 'src/angular7/dist'
+      PathtoPublish: 'src/angular8/dist'
       ArtifactName: angular2
   
   - task: Npm@1
@@ -37,22 +37,22 @@ jobs:
     inputs:
       command: custom
       customCommand: run test -- --watch=false --code-coverage
-      workingDir: src/angular7
+      workingDir: src/angular8
   
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage Angular results'
     condition: succeededOrFailed()
     inputs:
       codeCoverageTool: Cobertura
-      summaryFileLocation: 'src/angular7/coverage/cobertura-coverage.xml'
-      reportDirectory: src/angular7/coverage
+      summaryFileLocation: 'src/angular8/coverage/cobertura-coverage.xml'
+      reportDirectory: src/angular8/coverage
       failIfCoverageEmpty: true
   
   - task: PublishTestResults@2
     displayName: 'Publish Angular test results'
     condition: succeededOrFailed()
     inputs:
-      searchFolder: $(System.DefaultWorkingDirectory)/src/angular7/junit
+      searchFolder: $(System.DefaultWorkingDirectory)/src/angular8/junit
       testRunTitle: Angular
       testResultsFormat: JUnit
       testResultsFiles: "**/TESTS*.xml"
@@ -62,20 +62,20 @@ jobs:
     inputs:
       command: custom
       customCommand: run lint --  --format=stylish
-      workingDir: src/angular7
+      workingDir: src/angular8
   
   - task: Npm@1
     displayName: 'E2E Test Angular'
     inputs:
       command: custom
       customCommand: run e2e
-      workingDir: src/angular7
+      workingDir: src/angular8
   
   - task: PublishTestResults@2
     displayName: 'Publish Angular E2E test results'
     condition: succeededOrFailed()
     inputs:
-      searchFolder: $(System.DefaultWorkingDirectory)/src/angular7/e2e/junit
+      searchFolder: $(System.DefaultWorkingDirectory)/src/angular8/e2e/junit
       testRunTitle: Angular_E2E
       testResultsFormat: JUnit
       testResultsFiles: "**/junit*.xml"
