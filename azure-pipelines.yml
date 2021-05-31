@@ -111,3 +111,6 @@ steps:
            sonar.test.inclusions=**/*.spec.ts
       sonar.typescript.lcov.reportPaths=coverage/lcov.info
      
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
