@@ -90,27 +90,3 @@ steps:
     testRunTitle: Angular_E2E
     testResultsFormat: JUnit
     testResultsFiles: "**/junit*.xml"
-
-
-- task: SonarQubePrepare@4
-  inputs:
-    SonarQube: 'sonar-new'
-    scannerMode: 'CLI'
-    configMode: 'file'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-           sonar.projectKey=MyProject
-           sonar.projectName=MyProject
-           sonar.projectVersion=1.0
-           sonar.sourceEncoding=UTF-8
-           sonar.sources=src/angular8
-           sonar.exclusions=**/node_modules/**
-           sonar.tests=src/angular8
-           sonar.test.inclusions=**/*.*.ts
-
-     
-- task: SonarQubePublish@4
-  inputs:
-    pollingTimeoutSec: '300'
